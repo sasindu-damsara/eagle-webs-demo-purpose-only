@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexa | Digital Architectural Development </title>
+    <title>Nexa | Your Next Gen Web Dev Partner </title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -53,6 +53,12 @@
         .card h3 { font-family: 'Orbitron'; font-size: 1rem; margin-bottom: 20px; letter-spacing: 3px; color: var(--accent-bright); }
         .card p { opacity: 0.7; line-height: 1.8; font-size: 0.95rem; }
         .client-name { margin-top: 20px; font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 4px; color: white; }
+        .stars { color: #ffb400; font-size: 1.2rem; margin-bottom: 10px; }
+
+        /* --- REVIEWS SLIDER --- */
+        .slider-container { width: 100%; max-width: 800px; margin: 0 auto; overflow: hidden; position: relative; }
+        .slider-track { display: flex; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
+        .slide { min-width: 100%; padding: 20px; box-sizing: border-box; }
 
         /* --- TIER ROWS --- */
         .tier-row { background: var(--glass); border: 1px solid var(--border); padding: 50px 40px; display: grid; grid-template-columns: 180px 1fr 200px; align-items: center; gap: 40px; margin-bottom: 25px; transition: 0.6s; }
@@ -66,9 +72,20 @@
         .btn-ascend { width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: white; font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 3px; cursor: pointer; transition: 0.4s; }
         .btn-ascend:hover { background: white; color: black; box-shadow: 0 0 20px white; }
 
-        /* --- CONTACT CARDS --- */
+        /* --- CONTACT PULSE ANIMATION --- */
+        @keyframes contactPulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 112, 243, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 112, 243, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 112, 243, 0); }
+        }
+
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 50px; }
         .contact-card { background: var(--glass); border: 1px solid var(--border); padding: 60px 40px; text-align: center; transition: 0.5s; }
+        .contact-card:hover, .contact-card:active { 
+            animation: contactPulse 1.5s infinite; 
+            border-color: var(--accent-bright);
+            transform: scale(1.02);
+        }
         .contact-card h3 { font-family: 'Orbitron'; margin-bottom: 10px; letter-spacing: 3px; color: var(--accent-bright); }
         .contact-card p { font-size: 0.9rem; opacity: 0.6; line-height: 1.6; margin-bottom: 20px; }
 
@@ -113,18 +130,44 @@
             <div class="page-header" style="margin-top: 150px; margin-bottom: 40px;">
                 <p class="sub-header">// CLIENT REVIEWS</p>
             </div>
-            <div class="grid-layout" style="margin-top: 0;">
-                <div class="card">
-                    <p>"The symmetry and attention to detail Nexa provided for our landing page was beyond expectation."</p>
-                    <div class="client-name">DILLON</div>
-                </div>
-                <div class="card">
-                    <p>"Incredible motion assets. Our brand identity feels years ahead of the current market."</p>
-                    <div class="client-name">SAYURU</div>
-                </div>
-                <div class="card">
-                    <p>"Fast, reliable, and unique. The 'Air' tier was perfect for our album showcase. Brilliant work."</p>
-                    <div class="client-name">DISAS</div>
+            
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide">
+                        <div class="card" style="width: 100%;">
+                            <div class="stars">★★★★★</div>
+                            <p>"The symmetry and attention to detail Nexa provided for our landing page was beyond expectation."</p>
+                            <div class="client-name">Mr.DILLON</div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="card" style="width: 100%;">
+                            <div class="stars">★★★★★</div>
+                            <p>"Incredible motion assets. Our brand identity feels years ahead of the current market."</p>
+                            <div class="client-name">Mr.SAYURU</div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="card" style="width: 100%;">
+                            <div class="stars">★★★★★</div>
+                            <p>"Fast, reliable, and unique. The 'Air' tier was perfect for our album showcase. Brilliant work."</p>
+                            <div class="client-name">Mr.DISAS</div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="card" style="width: 100%;">
+                            <div class="stars">★★★★★</div>
+                            <p>"The UI architecture is flawless. Our site speed and engagement hit record highs."</p>
+                            <div class="client-name">Mr.VINSARA</div>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="card" style="width: 100%;">
+                            <div class="stars">★★★★★</div>
+                            <p>"Elite branding and marketing videos. Nexa is truly the next gen of web development."</p>
+                            <div class="client-name">Mr.NELUSHA</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -138,13 +181,21 @@
             </div>
             
             <div class="plans-list">
-                <div class="tier-row"><div class="tier-name">BETA</div><div class="tier-specs"><ul><li>• 1 Landing Page</li><li>• Section-wise Division</li></ul><ul><li>• 10 Days Aftercare</li><li>• Fast Turnaround</li></ul><div class="use-case">Suitable for: Portfolios and personal branding.</div></div><div style="text-align:right;"><div class="tier-price">$15</div><button class="btn-ascend" onclick="buy('BETA')">CLAIM</button></div></div>
+                <div class="tier-row"><div class="tier-name">BETA</div><div class="tier-specs"><ul><li>• 1 Landing Page</li><li>• Section-wise Division</li></ul><ul><li>• 10 Days Aftercare</li><li>• Fast Turnaround</li></ul><div class="use-case">Suitable for: Portfolios and personal branding.</div></div><div style="text-align:right;"><div class="tier-price">$15</div><a href="./terms.html" style="text-decoration: none;">
+    <button class="btn-ascend">CLAIM</button>
+</a></div></div>
                 
-                <div class="tier-row"><div class="tier-name">AIR</div><div class="tier-specs"><ul><li>• 2 Page Website</li><li>• Section-wise Division</li></ul><ul><li>• 20 Days Aftercare</li><li>• High Visibility</li></ul><div class="use-case">Suitable for: Album integrated websites, small shops (non-ecom).</div></div><div style="text-align:right;"><div class="tier-price">$23</div><button class="btn-ascend" onclick="buy('AIR')">DEPART</button></div></div>
+                <div class="tier-row"><div class="tier-name">AIR</div><div class="tier-specs"><ul><li>• 2 Page Website</li><li>• Section-wise Division</li></ul><ul><li>• 20 Days Aftercare</li><li>• High Visibility</li></ul><div class="use-case">Suitable for: Album integrated websites, small shops (non-ecom).</div></div><div style="text-align:right;"><div class="tier-price">$25</div><a href="./terms.html" style="text-decoration: none;">
+    <button class="btn-ascend">DEPART</button>
+</a></div></div>
                 
-                <div class="tier-row"><div class="tier-name">PRO</div><div class="tier-specs"><ul><li>• 3 Full Page Website</li><li>• Custom UI Design</li></ul><ul><li>• 35 Days Aftercare</li><li>• Enhanced Logic</li></ul><div class="use-case">Suitable for: E-com shops (manual payments), restaurant menus.</div></div><div style="text-align:right;"><div class="tier-price">$35</div><button class="btn-ascend" onclick="buy('PRO')">EVOLVE</button></div></div>
+                <div class="tier-row"><div class="tier-name">PRO</div><div class="tier-specs"><ul><li>• 3 Full Page Website</li><li>• Custom UI Design</li></ul><ul><li>• 35 Days Aftercare</li><li>• Enhanced Logic</li></ul><div class="use-case">Suitable for: E-com shops (manual payments), restaurant menus.</div></div><div style="text-align:right;"><div class="tier-price">$35</div><a href="./terms.html" style="text-decoration: none;">
+    <button class="btn-ascend">EVOLVE</button>
+</a></div></div>
                 
-                <div class="tier-row" style="border-left: 4px solid var(--accent-bright);"><div class="tier-name">ULTRA</div><div class="tier-specs"><ul><li>• 4-5 Page Web App</li><li>• Integrated Buying Options</li></ul><ul><li>• 50 Days Aftercare</li><li>• Full Automation</li></ul><div class="use-case">Suitable for: Full E-com websites and complex systems.</div></div><div style="text-align:right;"><div class="tier-price" style="font-size: 1.8rem;">$80-$95</div><button class="btn-ascend" onclick="buy('ULTRA')">ASCEND</button></div></div>
+                <div class="tier-row" style="border-left: 4px solid var(--accent-bright);"><div class="tier-name">ULTRA</div><div class="tier-specs"><ul><li>• 4-5 Page Web App</li><li>• Integrated Buying Options</li></ul><ul><li>• 50 Days Aftercare</li><li>• Full Automation</li></ul><div class="use-case">Suitable for: Full E-com websites and complex systems.</div></div><div style="text-align:right;"><div class="tier-price">$90</div><a href="./terms.html" style="text-decoration: none;">
+    <button class="btn-ascend">ASCEND</button>
+</a></div></div>
             </div>
 
             <p style="text-align: center; opacity: 0.5; font-size: 0.8rem; margin-top: 20px;">*Aftercare includes assistance to update regular features on the website.</p>
@@ -157,14 +208,18 @@
                         <p>Max up to 3 clean unique image posts per work.</p>
                         <h4 style="color:var(--accent-bright); font-family:'Orbitron'; font-size:1.5rem; margin: 15px 0;">$4/post</h4>
                         <p style="font-size: 0.7rem;">(No advance payment required)</p>
-                        <button class="btn-ascend" onclick="buy('Image Post Plan')">ACQUIRE</button>
+                        <a href="./terms.html" style="text-decoration: none;">
+    <button class="btn-ascend">ACQUIRE</button>
+</a>
                     </div>
                     <div class="contact-card">
                         <h3>SHORT VIDEO</h3>
                         <p>Max 4 short branding videos (50 sec max) per work.</p>
                         <h4 style="color:var(--accent-bright); font-family:'Orbitron'; font-size:1.5rem; margin: 15px 0;">$14/post</h4>
                         <p style="font-size: 0.7rem;">(20% advance payment mandatory)</p>
-                        <button class="btn-ascend" onclick="buy('Video Post Plan')">ACQUIRE</button>
+                        <a href="./terms.html" style="text-decoration: none;">
+    <button class="btn-ascend">ACQUIRE</button>
+</a>
                     </div>
                 </div>
             </div>
@@ -178,52 +233,38 @@
             <p class="sub-header">READY TO START YOUR PROJECT?</p>
         </div>
         <div class="contact-grid">
-    <div class="contact-card">
-        <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.514-2.961-2.63-.086-.115-.708-.941-.708-1.792s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.253-.041.397.303.145.346.496 1.209.539 1.296.043.087.072.188.014.303-.058.115-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.383.101.173.447.737.958 1.192.658.586 1.214.769 1.387.855s.303.058.419-.072c.115-.13.506-.59.636-.793.13-.203.26-.173.448-.101.188.072 1.184.559 1.387.66s.339.151.388.236c.05.085.05.49-.094.895z"/></svg>
-        <h3>WHATSAPP</h3>
-        <p>Connect with our lead architect for instant project consultation and technical support.</p>
-        <button class="btn-ascend" onclick="buy('General')">OPEN CHAT</button>
-    </div>
+            <div class="contact-card">
+                <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.514-2.961-2.63-.086-.115-.708-.941-.708-1.792s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.253-.041.397.303.145.346.496 1.209.539 1.296.043.087.072.188.014.303-.058.115-.087.188-.173.289l-.26.303c-.087.101-.177.211-.077.383.101.173.447.737.958 1.192.658.586 1.214.769 1.387.855s.303.058.419-.072c.115-.13.506-.59.636-.793.13-.203.26-.173.448-.101.188.072 1.184.559 1.387.66s.339.151.388.236c.05.085.05.49-.094.895z"/></svg>
+                <h3>WHATSAPP</h3>
+                <p>Connect with our lead architect for instant project consultation.</p>
+                <button class="btn-ascend" onclick="buy('General')">OPEN CHAT</button>
+            </div>
 
-    <div class="contact-card">
-        <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
-        <h3>EMAIL</h3>
-        <p>For formal proposals, documentation, or detailed project inquiries, reach our inbox.</p>
-        <h4 style="color:var(--accent-bright); font-family:'Orbitron'; font-size:0.9rem; letter-spacing:2px;">hello@nexa.dev</h4>
-    </div>
+            <div class="contact-card">
+                <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+                <h3>EMAIL</h3>
+                <p>For formal proposals and documentation inquiries.</p>
+                <h4 style="color:var(--accent-bright); font-family:'Orbitron'; font-size:0.9rem; letter-spacing:2px;">hello@nexa.dev</h4>
+            </div>
 
-    <div class="contact-card">
-        <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
-        <h3>STATION</h3>
-        <p>Our central hub for neural architecture and digital design development.</p>
-        <h4 style="color:var(--accent-bright); font-family:'Orbitron'; font-size:0.9rem; letter-spacing:2px;">Sector 7, Colombo</h4>
-    </div>
-
-    <div class="contact-card">
-        <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c.796 0 1.441.645 1.441 1.44s-.645 1.44-1.441 1.44c-.795 0-1.439-.645-1.439-1.44s.644-1.44 1.439-1.44z"/></svg>
-        <h3>INSTAGRAM</h3>
-        <p>Check our latest digital sculptures and cinematic marketing reels in our gallery.</p>
-        <button class="btn-ascend">VIEW FEED</button>
-    </div>
-
-    <div class="contact-card">
-        <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-        <h3>YOUTUBE</h3>
-        <p>Watch our detailed case studies and architectural development walkthroughs.</p>
-        <button class="btn-ascend">SUBSCRIBE</button>
+            <div class="contact-card">
+                <svg class="contact-icon" viewBox="0 0 24 24" style="width:40px; height:40px; fill:var(--accent-bright); margin-bottom:15px; filter: drop-shadow(0 0 8px var(--accent));"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
+                <h3>STATION</h3>
+                <p>Our central hub for digital design development.</p>
+                <h4 style="color:var(--accent-bright); font-family:'Orbitron'; font-size:0.9rem; letter-spacing:2px;">Sector 7, Colombo</h4>
+            </div>
+        </div>
     </div>
 </div>
-    </div>
-</div>
+
     <footer>
         <div class="socials" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 40px;">
-        <a href="#" target="_blank" style="text-decoration: none;"><button class="btn-ascend" style="padding: 10px 25px; width: auto;">WHATSAPP</button></a>
-        <a href="#" target="_blank" style="text-decoration: none;"><button class="btn-ascend" style="padding: 10px 25px; width: auto;">INSTAGRAM</button></a>
-        <a href="#" target="_blank" style="text-decoration: none;"><button class="btn-ascend" style="padding: 10px 25px; width: auto;">YOUTUBE</button></a>
-    </div>
+            <a href="#" target="_blank" style="text-decoration: none;"><button class="btn-ascend" style="padding: 10px 25px; width: auto;">WHATSAPP</button></a>
+            <a href="#" target="_blank" style="text-decoration: none;"><button class="btn-ascend" style="padding: 10px 25px; width: auto;">INSTAGRAM</button></a>
+            <a href="#" target="_blank" style="text-decoration: none;"><button class="btn-ascend" style="padding: 10px 25px; width: auto;">YOUTUBE</button></a>
+        </div>
         <div class="f-logo">NEXA</div>
-        <p style="margin-top: 20px; opacity: 0.2; font-size: 10px; letter-spacing: 5px;">EST. 2026 // YOUR NEXT GEN WEB DEV PARTNER
-</p>
+        <p style="margin-top: 20px; opacity: 0.2; font-size: 10px; letter-spacing: 5px;">EST. 2026 // YOUR NEXT GEN WEB DEV PARTNER</p>
     </footer>
 
     <script>
@@ -250,6 +291,16 @@
                 }, 500);
             }
         }, 4000);
+
+        // Auto Review Slider Logic
+        let currentSlide = 0;
+        const totalSlides = 5;
+        const track = document.getElementById('sliderTrack');
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }, 5000); // Changes slide every 5 seconds
     </script>
 </body>
 </html>
