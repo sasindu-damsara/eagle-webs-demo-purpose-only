@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexa | Terms and Conditions </title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #000000;
+            --accent: #0070f3;
+            --accent-bright: #00d4ff;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background: var(--bg);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background */
+        .aura { position: fixed; width: 100%; height: 100%; z-index: -1; }
+        .orb { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 500px; height: 500px; background: var(--accent); filter: blur(150px); opacity: 0.15;
+        }
+
+        .confirm-container {
+            width: 90%;
+            max-width: 800px;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-family: 'Orbitron';
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* PDF Viewer Styling */
+        .pdf-viewer {
+            width: 100%;
+            height: 400px; /* Approximately 1/2 of standard desktop view */
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+        }
+
+        /* Checkbox Styling */
+        .terms-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-bright);
+            cursor: pointer;
+        }
+
+        label {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px;
+            font-family: 'Orbitron';
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Next Button State */
+        #nextBtn {
+            opacity: 0.2;
+            pointer-events: none;
+            border-color: var(--accent);
+        }
+
+        #nextBtn.active {
+            opacity: 1;
+            pointer-events: auto;
+            background: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .btn-download:hover {
+            background: white;
+            color: black;
+        }
+
+        @media (max-width: 600px) {
+            .btn-group { grid-template-columns: 1fr; }
+            .confirm-container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="aura"><div class="orb"></div></div>
+
+    <div class="confirm-container">
+        <h1>Confirmation of Your Purchase</h1>
+
+        <div class="pdf-viewer">
+            <iframe src="./terms&conditions.pdf" width="100%" height="100%" style="border:none;">
+                <p>Your browser does not support PDFs. <a href="YOUR_TERMS_FILE.pdf">Download PDF instead.</a></p>
+            </iframe>
+        </div>
+
+        <div class="terms-flex" onclick="toggleCheckbox()">
+            <input type="checkbox" id="termsCheck">
+            <label for="termsCheck">I accept the Terms and Conditions of this service</label>
+        </div>
+
+        <div class="btn-group">
+            <a href="./terms&conditions.pdf" download class="btn btn-download">Download T&C</a><button id="nextBtn" class="btn" onclick="proceed('intake.html')">Next Step</button>
+        </div>
+    </div>
+
+    <script>
+        const checkbox = document.getElementById('termsCheck');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Monitor checkbox state
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                nextBtn.classList.add('active');
+            } else {
+                nextBtn.classList.remove('active');
+            }
+        });
+
+        function proceed() {
+            alert('Proceeding to final payment/confirmation...');
+            // window.location.href = "your-next-page.html";
+        }
+
+        // Helper to make the whole label row clickable
+        function toggleCheckbox() {
+            // Logic handled by the event listener above
+        }
+
+function proceed(targetFile) {
+    // Add a small fade-out effect or logic here if needed
+    window.location.href = targetFile;
+}
+    </script>
+</body>
+</html>

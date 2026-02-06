@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexa | Confirm Your Order</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("BzGuTCprdK6a4Zbsb"); 
+        })();
+    </script>
+
+    <style>
+        :root {
+            --bg: #000000;
+            --accent-bright: #00d4ff; 
+            --border: rgba(255, 255, 255, 0.2);
+            --glass: rgba(15, 15, 15, 0.9);
+            --input-bg: rgba(255, 255, 255, 0.07);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg); 
+            color: white; 
+            font-family: 'Rajdhani', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .form-container { 
+            width: 100%; 
+            max-width: 800px; 
+            background: var(--glass); 
+            border: 1px solid var(--border); 
+            padding: 40px; 
+            backdrop-filter: blur(30px);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.05);
+        }
+
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 5px; color: var(--accent-bright); text-transform: uppercase; }
+        .header h2 { font-family: 'Rajdhani'; font-size: 0.9rem; letter-spacing: 3px; color: #666; margin-top: 10px; }
+
+        .form-group { margin-bottom: 20px; position: relative; }
+        label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; color: var(--accent-bright); }
+        
+        input, .custom-select {
+            width: 100%; 
+            background: var(--input-bg); 
+            border: 1px solid var(--border);
+            padding: 12px; 
+            color: white; 
+            font-family: 'Rajdhani'; 
+            font-size: 1rem; 
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--accent-bright); background: rgba(255,255,255,0.12); }
+
+        .custom-select { cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+        .custom-select::after { content: '▼'; font-size: 0.6rem; color: var(--accent-bright); }
+
+        .options-box {
+            position: absolute; top: 100%; left: 0; width: 100%; background: #0a0a0a; 
+            border: 1px solid var(--accent-bright); max-height: 200px; overflow-y: auto; 
+            z-index: 100; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .options-box.show { display: block; }
+
+        .option-item { padding: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .option-item:hover { background: var(--accent-bright); color: black; }
+        .flag-icon { width: 22px; height: 15px; object-fit: cover; }
+
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .row-tri { display: grid; grid-template-columns: 110px 1fr 80px; gap: 15px; }
+
+        .boost-section { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .boost-title { font-family: 'Orbitron'; font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 20px; color: var(--accent-bright); }
+        .dynamic-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 15px; }
+
+        .btn-submit {
+            width: 100%; padding: 18px; background: transparent; border: 1px solid var(--accent-bright);
+            color: white; font-family: 'Orbitron'; cursor: pointer; margin-top: 30px; transition: 0.4s; letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .btn-submit:hover { background: white; color: black; box-shadow: 0 0 25px var(--accent-bright); }
+
+        @media (max-width: 600px) { .row, .row-tri { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <div class="header">
+        <h1>NEXA INTAKE</h1>
+        <h2>Confirm Your Order</h2>
+    </div>
+
+    <form id="purchaseForm">
+        <div class="form-group">
+            <div class="row-tri">
+                <div>
+                    <label>Title*</label>
+                    <div id="titleTrigger" class="custom-select" onclick="toggleBox('titleBox')">Mr.</div>
+                    <div id="titleBox" class="options-box">
+                        <div class="option-item" onclick="selectPlain('titleTrigger', 'Mr.', 'titleBox')">Mr.</div>
+                        <div class="option-item" onclick="selectPlain('titleTrigger', 'Mrs.', 'titleBox')">Mrs.</div>
+                        <div class="option-item" onclick="selectPlain('titleTrigger', 'Ms.', 'titleBox')">Ms.</div>
+                    </div>
+                </div>
+                <div>
+                    <label>Name with Initials*</label>
+                    <input type="text" id="clientName" placeholder="J.D. Silva" required>
+                </div>
+                <div>
+                    <label>Age*</label>
+                    <input type="number" id="clientAge" min="13" max="100" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Country of Residence*</label>
+            <div id="countryTrigger" class="custom-select" onclick="toggleBox('countryBox')">Select Country</div>
+            <div id="countryBox" class="options-box"></div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label>Phone Code*</label>
+                <div id="codeTrigger" class="custom-select" onclick="toggleBox('codeBox')">+Code</div>
+                <div id="codeBox" class="options-box"></div>
+            </div>
+            <div class="form-group">
+                <label>WhatsApp Number*</label>
+                <input type="tel" id="clientPhone" placeholder="771234567" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address*</label>
+            <input type="email" id="clientEmail" placeholder="client@nexa.dev" required>
+        </div>
+
+        <div class="form-group">
+            <label>Preferred Contact Method*</label>
+            <div id="contactTrigger" class="custom-select" onclick="toggleBox('contactBox')">WhatsApp</div>
+            <div id="contactBox" class="options-box">
+                <div class="option-item" onclick="selectPlain('contactTrigger', 'WhatsApp', 'contactBox')">WhatsApp</div>
+                <div class="option-item" onclick="selectPlain('contactTrigger', 'Email', 'contactBox')">Email</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Chosen System Plan*</label>
+            <div id="planTrigger" class="custom-select" onclick="toggleBox('planBox')">BETA SYSTEM ($15)</div>
+            <div id="planBox" class="options-box">
+                <div class="option-item" onclick="selectPlain('planTrigger', 'BETA SYSTEM ($15)', 'planBox')">BETA SYSTEM ($15)</div>
+                <div class="option-item" onclick="selectPlain('planTrigger', 'AIR SYSTEM ($25)', 'planBox')">AIR SYSTEM ($25)</div>
+                <div class="option-item" onclick="selectPlain('planTrigger', 'PRO SYSTEM ($35)', 'planBox')">PRO SYSTEM ($35)</div>
+                <div class="option-item" onclick="selectPlain('planTrigger', 'ULTRA SYSTEM ($90)', 'planBox')">ULTRA SYSTEM ($90)</div>
+            </div>
+        </div>
+
+        <div class="boost-section">
+            <div class="boost-title">// CHOOSE YOUR BOOST IT UP PLAN (OPT)</div>
+            <div class="row">
+                <div class="form-group">
+                    <label>Image Posts (Max 3)</label>
+                    <input type="number" id="imgCount" min="0" max="3" value="0">
+                </div>
+                <div class="form-group">
+                    <label>Short Videos (Max 4)</label>
+                    <input type="number" id="vidCount" min="0" max="4" value="0" oninput="updateVideos(this.value)">
+                </div>
+            </div>
+            <div id="durationFields" class="dynamic-fields"></div>
+        </div>
+
+        <button type="submit" class="btn-submit">CONFIRM ACQUISITION</button>
+    </form>
+</div>
+
+<script>
+     const countries = [
+
+    {n:"Afghanistan", c:"+93", iso:"af"}, {n:"Albania", c:"+355", iso:"al"}, {n:"Algeria", c:"+213", iso:"dz"},
+
+    {n:"Andorra", c:"+376", iso:"ad"}, {n:"Angola", c:"+244", iso:"ao"}, {n:"Argentina", c:"+54", iso:"ar"},
+
+    {n:"Armenia", c:"+374", iso:"am"}, {n:"Australia", c:"+61", iso:"au"}, {n:"Austria", c:"+43", iso:"at"},
+
+    {n:"Azerbaijan", c:"+994", iso:"az"}, {n:"Bahrain", c:"+973", iso:"bh"}, {n:"Bangladesh", c:"+880", iso:"bd"},
+
+    {n:"Belarus", c:"+375", iso:"by"}, {n:"Belgium", c:"+32", iso:"be"}, {n:"Belize", c:"+501", iso:"bz"},
+
+    {n:"Bhutan", c:"+975", iso:"bt"}, {n:"Bolivia", c:"+591", iso:"bo"}, {n:"Brazil", c:"+55", iso:"br"},
+
+    {n:"Bulgaria", c:"+359", iso:"bg"}, {n:"Cambodia", c:"+855", iso:"kh"}, {n:"Canada", c:"+1", iso:"ca"},
+
+    {n:"Chile", c:"+56", iso:"cl"}, {n:"China", c:"+86", iso:"cn"}, {n:"Colombia", c:"+57", iso:"co"},
+
+    {n:"Costa Rica", c:"+506", iso:"cr"}, {n:"Croatia", c:"+385", iso:"hr"}, {n:"Cyprus", c:"+357", iso:"cy"},
+
+    {n:"Czech Republic", c:"+420", iso:"cz"}, {n:"Denmark", c:"+45", iso:"dk"}, {n:"Ecuador", c:"+593", iso:"ec"},
+
+    {n:"Egypt", c:"+20", iso:"eg"}, {n:"Estonia", c:"+372", iso:"ee"}, {n:"Ethiopia", c:"+251", iso:"et"},
+
+    {n:"Finland", c:"+358", iso:"fi"}, {n:"France", c:"+33", iso:"fr"}, {n:"Georgia", c:"+995", iso:"ge"},
+
+    {n:"Germany", c:"+49", iso:"de"}, {n:"Ghana", c:"+233", iso:"gh"}, {n:"Greece", c:"+30", iso:"gr"},
+
+    {n:"Hong Kong", c:"+852", iso:"hk"}, {n:"Hungary", c:"+36", iso:"hu"}, {n:"Iceland", c:"+354", iso:"is"},
+
+    {n:"India", c:"+91", iso:"in"}, {n:"Indonesia", c:"+62", iso:"id"}, {n:"Iran", c:"+98", iso:"ir"},
+
+    {n:"Iraq", c:"+964", iso:"iq"}, {n:"Ireland", c:"+353", iso:"ie"}, {n:"Israel", c:"+972", iso:"il"},
+
+    {n:"Italy", c:"+39", iso:"it"}, {n:"Jamaica", c:"+1", iso:"jm"}, {n:"Japan", c:"+81", iso:"jp"},
+
+    {n:"Jordan", c:"+962", iso:"jo"}, {n:"Kazakhstan", c:"+7", iso:"kz"}, {n:"Kenya", c:"+254", iso:"ke"},
+
+    {n:"Kuwait", c:"+965", iso:"kw"}, {n:"Latvia", c:"+371", iso:"lv"}, {n:"Lebanon", c:"+961", iso:"lb"},
+
+    {n:"Libya", c:"+218", iso:"ly"}, {n:"Lithuania", c:"+370", iso:"lt"}, {n:"Luxembourg", c:"+352", iso:"lu"},
+
+    {n:"Malaysia", c:"+60", iso:"my"}, {n:"Maldives", c:"+960", iso:"mv"}, {n:"Malta", c:"+356", iso:"mt"},
+
+    {n:"Mauritius", c:"+230", iso:"mu"}, {n:"Mexico", c:"+52", iso:"mx"}, {n:"Monaco", c:"+377", iso:"mc"},
+
+    {n:"Mongolia", c:"+976", iso:"mn"}, {n:"Morocco", c:"+212", iso:"ma"}, {n:"Nepal", c:"+977", iso:"np"},
+
+    {n:"Netherlands", c:"+31", iso:"nl"}, {n:"New Zealand", c:"+64", iso:"nz"}, {n:"Nigeria", c:"+234", iso:"ng"},
+
+    {n:"Norway", c:"+47", iso:"no"}, {n:"Oman", c:"+968", iso:"om"}, {n:"Pakistan", c:"+92", iso:"pk"},
+
+    {n:"Panama", c:"+507", iso:"pa"}, {n:"Peru", c:"+51", iso:"pe"}, {n:"Philippines", c:"+63", iso:"ph"},
+
+    {n:"Poland", c:"+48", iso:"pl"}, {n:"Portugal", c:"+351", iso:"pt"}, {n:"Qatar", c:"+974", iso:"qa"},
+
+    {n:"Romania", c:"+40", iso:"ro"}, {n:"Russia", c:"+7", iso:"ru"}, {n:"Saudi Arabia", c:"+966", iso:"sa"},
+
+    {n:"Serbia", c:"+381", iso:"rs"}, {n:"Singapore", c:"+65", iso:"sg"}, {n:"Slovakia", c:"+421", iso:"sk"},
+
+    {n:"Slovenia", c:"+386", iso:"si"}, {n:"South Africa", c:"+27", iso:"za"}, {n:"South Korea", c:"+82", iso:"kr"},
+
+    {n:"Spain", c:"+34", iso:"es"}, {n:"Sri Lanka", c:"+94", iso:"lk"}, {n:"Sweden", c:"+46", iso:"se"},
+
+    {n:"Switzerland", c:"+41", iso:"ch"}, {n:"Taiwan", c:"+886", iso:"tw"}, {n:"Thailand", c:"+66", iso:"th"},
+
+    {n:"Turkey", c:"+90", iso:"tr"}, {n:"Ukraine", c:"+380", iso:"ua"}, {n:"United Arab Emirates", c:"+971", iso:"ae"},
+
+    {n:"United Kingdom", c:"+44", iso:"gb"}, {n:"United States", c:"+1", iso:"us"}, {n:"Vietnam", c:"+84", iso:"vn"}
+
+];
+
+    const cBox = document.getElementById('countryBox');
+    const pBox = document.getElementById('codeBox');
+
+    countries.forEach(item => {
+        const flag = `https://flagcdn.com/w40/${item.iso}.png`;
+        cBox.innerHTML += `<div class="option-item" onclick="selectCountry('${item.n}', '${flag}')"><img src="${flag}" class="flag-icon">${item.n}</div>`;
+        pBox.innerHTML += `<div class="option-item" onclick="selectCode('${item.c}', '${flag}')"><img src="${flag}" class="flag-icon">${item.c}</div>`;
+    });
+
+    function toggleBox(id) {
+        const target = document.getElementById(id);
+        const isOpen = target.classList.contains('show');
+        document.querySelectorAll('.options-box').forEach(b => b.classList.remove('show'));
+        if(!isOpen) target.classList.add('show');
+    }
+
+    function selectPlain(triggerId, val, boxId) {
+        document.getElementById(triggerId).innerText = val;
+        document.getElementById(boxId).classList.remove('show');
+    }
+
+    function selectCountry(n, f) {
+        document.getElementById('countryTrigger').innerHTML = `<img src="${f}" class="flag-icon"> ${n}`;
+        document.getElementById('countryBox').classList.remove('show');
+    }
+
+    function selectCode(c, f) {
+        document.getElementById('codeTrigger').innerHTML = `<img src="${f}" class="flag-icon"> ${c}`;
+        document.getElementById('codeBox').classList.remove('show');
+    }
+
+    function updateVideos(val) {
+        const box = document.getElementById('durationFields');
+        box.innerHTML = '';
+        for(let i=1; i<=Math.min(val, 4); i++) {
+            box.innerHTML += `<div><label>Vid ${i} (Sec)</label><input type="number" class="vid-time" min="1" max="50" placeholder="Max 50" required></div>`;
+        }
+    }
+
+    // Step 2: Integrated EmailJS + Redirection
+    document.getElementById('purchaseForm').onsubmit = function(e) {
+        e.preventDefault();
+
+        if(document.getElementById('countryTrigger').innerText === "Select Country") {
+            alert("Please select your country.");
+            return;
+        }
+
+        const btn = e.target.querySelector('.btn-submit');
+        btn.innerText = "TRANSMITTING DATA...";
+        btn.disabled = true;
+
+        const formData = {
+            title: document.getElementById('titleTrigger').innerText,
+            name: document.getElementById('clientName').value,
+            age: document.getElementById('clientAge').value,
+            country: document.getElementById('countryTrigger').innerText,
+            phone: document.getElementById('codeTrigger').innerText + " " + document.getElementById('clientPhone').value,
+            email: document.getElementById('clientEmail').value,
+            contact_via: document.getElementById('contactTrigger').innerText,
+            plan: document.getElementById('planTrigger').innerText,
+            boost_imgs: document.getElementById('imgCount').value,
+            boost_vids: document.getElementById('vidCount').value,
+            vid_durations: Array.from(document.querySelectorAll('.vid-time')).map((inp, i) => `V${i+1}: ${inp.value}s`).join(', ')
+        };
+
+        // Chained Emails using YOUR SPECIFIC IDs
+        emailjs.send('nexa_sl_26', 'Nexa_Order_Incoming', formData)
+            .then(() => {
+                return emailjs.send('nexa_sl_26', 'Nexa_Order_Confirmation', formData);
+            })
+            .then(() => {
+                window.location.href = `sub_order.html?title=${encodeURIComponent(formData.title)}&name=${encodeURIComponent(formData.name)}`;
+            })
+            .catch((err) => {
+                alert("NEXA Link Failed. Please check connection.");
+                btn.innerText = "CONFIRM ACQUISITION";
+                btn.disabled = false;
+                console.error(err);
+            });
+    };
+
+    window.onclick = (e) => { 
+        if(!e.target.closest('.form-group')) {
+            document.querySelectorAll('.options-box').forEach(b => b.classList.remove('show')); 
+        }
+    };
+</script>
+</body>
+</html>
